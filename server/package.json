@@ -1,0 +1,35 @@
+{
+  "name": "hand-desk",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/dotenv-safe": "^8.1.2",
+    "@types/node": "^17.0.14",
+    "nodemon": "^2.0.15",
+    "ts-node": "3.3.0",
+    "tsconfig.json": "^1.0.10",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "apollo-server-core": "^3.6.2",
+    "apollo-server-express": "^3.6.2",
+    "class-validator": "^0.13.2",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.2",
+    "graphql": "^16.3.0",
+    "pg": "^8.4.0",
+    "reflect-metadata": "^0.1.10",
+    "type-graphql": "^1.1.1",
+    "typeorm": "0.2.41"
+  },
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon dist/index.js",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "gen-types": "npx gen-env-types .env -o src/types/env.d.ts -e .",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+  }
+}
