@@ -4,7 +4,7 @@ module.exports = {
   synchronize: true,
   logging: false,
   url: process.env.DATABASE_URL,
-  entities: ['dist/entity/**/*.js'],
+  entities: ['dist/entities/**/*.js'],
   migrations: ['dist/migration/**/*.js'],
   subscribers: ['dist/subscriber/**/*.js'],
   cli: {
