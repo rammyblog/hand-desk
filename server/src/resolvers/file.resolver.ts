@@ -43,6 +43,8 @@ export class FileResolver {
         });
         const user = await User.findOne(jwtVerify(req));
         return File.create({ url: URL, user }).save();
+      } else {
+        throw new Error('error uploading file');
       }
     }
     throw new Error('Unsupported file type.');
