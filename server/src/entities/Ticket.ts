@@ -6,10 +6,13 @@ import {
   UpdateDateColumn,
   BaseEntity,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Min } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { User } from './User';
+import { File } from './File';
 
 export enum ProductEnum {
   HEADSET = 'headset',
@@ -65,9 +68,11 @@ export class Ticket extends BaseEntity {
   @ManyToOne(() => User, { nullable: true })
   staff: User;
 
-  @Field()
-  @Column('string', { array: true })
-  fileURL!: string[];
+  @Field(() => [File])
+  @Column('text', { array: true })
+  @ManyToMany(() => File)
+  @JoinTable()
+  fileURLs: File[];
 
   @Field()
   @Column({ type: 'enum', enum: StatusEnum, default: StatusEnum.NEW })

@@ -6,6 +6,9 @@ declare global {
       REDIS_URL: string;
       SESSION_SECRET: string;
       JWT_EXPIRATION: string;
+      CLOUDINARY_NAME: string;
+      CLOUDINARY_API_KEY: string;
+      CLOUDINARY_SECRET: string;
     }
   }
 }

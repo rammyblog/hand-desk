@@ -11,6 +11,8 @@ import Redis from 'ioredis';
 import RedisStore from 'connect-redis';
 import { COOKIE_KEY, __prod__ } from './constants';
 import { MyContext } from './types/context.types';
+import { FileResolver } from './resolvers/file.resolver';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 dotenv.config();
 const redisClient = new Redis(process.env.REDIS_URL);
@@ -43,10 +45,11 @@ createConnection()
         name: COOKIE_KEY,
       })
     );
+    app.use(graphqlUploadExpress());
 
     const server = new ApolloServer({
       schema: await buildSchema({
-        resolvers: [UserResolver],
+        resolvers: [UserResolver, FileResolver],
         validate: false,
       }),
       context: ({ req, res }): MyContext => ({
