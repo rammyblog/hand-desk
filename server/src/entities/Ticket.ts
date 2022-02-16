@@ -70,7 +70,9 @@ export class Ticket extends BaseEntity {
 
   @Field(() => [File])
   @Column('text', { array: true })
-  @ManyToMany(() => File)
+  @ManyToMany(() => File, {
+    cascade: true,
+  })
   @JoinTable()
   fileURLs: File[];
 

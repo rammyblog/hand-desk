@@ -5,21 +5,27 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  ManyToOne,
 } from 'typeorm';
 import { IsUrl } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
+import { User } from './User';
 
 @Entity()
 @ObjectType()
 export class File extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @Field()
   @Column()
   @IsUrl()
-  url!: string;
+  url: string;
+
+  @Field(() => User)
+  @ManyToOne(() => User, (user) => user.files, { cascade: true })
+  user: User;
 
   @CreateDateColumn()
   createdAt = new Date();

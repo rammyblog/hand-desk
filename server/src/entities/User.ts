@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  OneToMany,
 } from 'typeorm';
 import { IsEmail, Min } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
+import { File } from './File';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -47,6 +49,9 @@ export class User extends BaseEntity {
 
   @Column()
   password!: string;
+
+  @OneToMany(() => File, (file) => file.user)
+  files: File[];
 
   @CreateDateColumn()
   createdAt = new Date();

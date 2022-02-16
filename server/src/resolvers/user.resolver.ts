@@ -8,7 +8,6 @@ import {
   UseMiddleware,
 } from 'type-graphql';
 import {
-  JWToken,
   LoginInput,
   RegisterInput,
   UserResponse,
@@ -17,6 +16,7 @@ import argon2 from 'argon2';
 import { MyContext } from 'src/types/context.types';
 import jwt from 'jsonwebtoken';
 import { isAuth } from '../middleware/isAuth';
+import { jwtVerify } from '../utils/jwtVerify';
 
 @Resolver(User)
 export class UserResolver {
@@ -33,10 +33,7 @@ export class UserResolver {
   @Query(() => User, { nullable: true })
   @UseMiddleware(isAuth)
   async me(@Ctx() { req }: MyContext): Promise<User | undefined> {
-    const authHeaders = req.headers.authorization as string;
-    const token = authHeaders && authHeaders.split('Bearer ')[1];
-    const decoded = jwt.verify(token, process.env.SESSION_SECRET) as JWToken;
-    const id = decoded.userId;
+    const id = jwtVerify(req);
     if (!id) {
       return undefined;
     }
