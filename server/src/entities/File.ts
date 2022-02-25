@@ -27,6 +27,10 @@ export class File extends BaseEntity {
   @ManyToOne(() => User, (user) => user.files, { cascade: true })
   user: User;
 
+  @Field()
+  @Column({ nullable: true })
+  publicId: string;
+
   @CreateDateColumn()
   createdAt = new Date();
 

@@ -13,10 +13,18 @@ import { COOKIE_KEY, __prod__ } from './constants';
 import { MyContext } from './types/context.types';
 import { FileResolver } from './resolvers/file.resolver';
 import { graphqlUploadExpress } from 'graphql-upload';
+import cloud from 'cloudinary';
+
+const cloudinary = cloud.v2;
 
 dotenv.config();
 const redisClient = new Redis(process.env.REDIS_URL);
 const redisStore = RedisStore(session);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 createConnection()
   .then(async (_) => {
