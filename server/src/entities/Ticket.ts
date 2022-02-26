@@ -69,12 +69,13 @@ export class Ticket extends BaseEntity {
   staff: User;
 
   @Field(() => [File])
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   @ManyToMany(() => File, {
     cascade: true,
+    nullable: true,
   })
   @JoinTable()
-  fileURLs: File[];
+  files: File[];
 
   @Field()
   @Column({ type: 'enum', enum: StatusEnum, default: StatusEnum.NEW })

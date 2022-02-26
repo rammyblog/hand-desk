@@ -14,6 +14,7 @@ import { MyContext } from './types/context.types';
 import { FileResolver } from './resolvers/file.resolver';
 import { graphqlUploadExpress } from 'graphql-upload';
 import cloud from 'cloudinary';
+import { TicketResolver } from './resolvers/ticket.resolver';
 
 const cloudinary = cloud.v2;
 
@@ -57,7 +58,7 @@ createConnection()
 
     const server = new ApolloServer({
       schema: await buildSchema({
-        resolvers: [UserResolver, FileResolver],
+        resolvers: [UserResolver, FileResolver, TicketResolver],
         validate: false,
       }),
       context: ({ req, res }): MyContext => ({

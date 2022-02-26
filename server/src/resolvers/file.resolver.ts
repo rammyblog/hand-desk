@@ -1,4 +1,11 @@
-import { Resolver, Mutation, Arg, UseMiddleware, Ctx, Query } from 'type-graphql';
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  UseMiddleware,
+  Ctx,
+  Query,
+} from 'type-graphql';
 import { GraphQLUpload } from 'graphql-upload';
 import fs, { createWriteStream } from 'fs';
 import { Upload } from '../types/Upload';
@@ -68,7 +75,7 @@ export class FileResolver {
   }
   @Query(() => File)
   @UseMiddleware(isAuth)
-  async getFile(@Arg('id') id: string): Promise<File | undefined> {
+  getFile(@Arg('id') id: string): Promise<File | undefined> {
     return File.findOne(id);
   }
 }
