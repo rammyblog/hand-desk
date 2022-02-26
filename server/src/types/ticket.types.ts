@@ -3,7 +3,7 @@ import { ProductEnum, PriorityEnum, StatusEnum } from '../entities/Ticket';
 import { InputType, Field } from 'type-graphql';
 
 @InputType()
-export class TicketCreateInput {
+export class TicketInput {
   @Field()
   @Min(2)
   subject: string;
@@ -18,7 +18,7 @@ export class TicketCreateInput {
   @Min(2)
   description: string;
 
-  @Field(() => [Number])
+  @Field(() => [Number], { nullable: true })
   fileIds?: number[];
 
   @Field()
