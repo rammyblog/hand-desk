@@ -42,4 +42,22 @@ export class TicketResolver {
     await ticket.save();
     return ticket;
   }
+  
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async assignTicket(
+    @Arg('ticketId', () => String) ticketId: string,
+    @Ctx() { req }: MyContext
+  ): Promise<Boolean> {
+    const ticket = await Ticket.findOne(ticketId);
+    const user = await User.findOne(jwtVerify(req));
+    if (!ticket) {
+      return false;
+    }
+    if (user?.role !== 'admin' || 'staff') {
+      return false;
+    }
+    ticket.staff = user;
+    return true;
+  }
 }
